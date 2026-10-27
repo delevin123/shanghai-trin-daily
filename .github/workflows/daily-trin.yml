@@ -1,0 +1,39 @@
+name: Daily Shanghai TRIN
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'calc_sh_trin.py'
+      - 'daily_report.py'
+      - '.github/workflows/daily-trin.yml'
+  schedule:
+    - cron: '17 15 * * 1-5'
+    - cron: '17 23 * * 1-5'
+permissions:
+  contents: write
+concurrency:
+  group: trin-daily
+  cancel-in-progress: false
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check calculator
+        run: python calc_sh_trin.py --self-test
+      - name: Calculate latest trading-day TRIN
+        run: python daily_report.py
+      - name: Publish JSON and Markdown
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/trin_latest.json data/trin_latest.md data/history/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update Shanghai TRIN report'
+            git push
+          fi

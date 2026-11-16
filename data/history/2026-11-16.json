@@ -1,0 +1,16 @@
+{
+  "trading_date": "2026-11-16",
+  "updated_at_beijing": "2026-11-17T07:44:49+08:00",
+  "source_url": "https://www.tdx.com.cn/products/data/data/g4day/20261116.zip",
+  "retrieved_from": "https://www.tdx.com.cn/products/data/data/g4day/20261116.zip",
+  "stock_count": 2314,
+  "advance_count": 581,
+  "decline_count": 1686,
+  "unchanged_count": 47,
+  "advance_volume_shares": 19703794969,
+  "decline_volume_shares": 25481761606,
+  "priced_records_in_sh_package": 27716,
+  "advance_decline_count_ratio": 0.34460261,
+  "advance_decline_volume_ratio": 0.7732509,
+  "trin": 0.44565433
+}
